@@ -12,4 +12,17 @@ public class TextUtils {
         return str == null || str.length() == 0;
     }
 
+
+    /**
+     * 处理文件路径含空格的情况
+     *
+     * @param text
+     * @return
+     */
+    public static String replaceSpaceForFilePath(String text) {
+        if (text.contains(" ")) {
+            text = text.replaceAll(" ", "\\\\ ");
+        }
+        return text;
+    }
 }
