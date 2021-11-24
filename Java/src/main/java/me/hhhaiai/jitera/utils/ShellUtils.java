@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ShellUtils {
+
     public static List<String> getResultArray(String cmd) {
         List<String> result = new ArrayList<String>();
         Process proc = null;

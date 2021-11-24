@@ -25,4 +25,19 @@ public class TextUtils {
         }
         return text;
     }
+
+    public static String[] split(String line, String regex, boolean isNeedWrapper) {
+        if (line.contains(regex)) {
+            return line.split(wrapper(regex, isNeedWrapper));
+        }
+        return new String[]{};
+    }
+
+    private static String wrapper(String regex, boolean isNeedWrapper) {
+        if (isNeedWrapper) {
+            return String.format("\\%s", regex);
+        } else {
+            return regex;
+        }
+    }
 }
