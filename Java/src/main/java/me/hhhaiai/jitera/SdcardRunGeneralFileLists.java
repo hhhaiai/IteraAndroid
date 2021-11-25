@@ -1,6 +1,7 @@
 package me.hhhaiai.jitera;
 
 import me.hhhaiai.jitera.ifs.ISayHello;
+import me.hhhaiai.jitera.logic.DeviceInfo;
 import me.hhhaiai.jitera.logic.SingleLogicFileName;
 import me.hhhaiai.jitera.logic.SingleLogicFullName;
 import me.hhhaiai.jitera.up.UploadHelper;
@@ -27,6 +28,7 @@ public class SdcardRunGeneralFileLists {
         JSONObject fullMomoryCount = SingleLogicFullName.getMemoryData();
         JSONObject fileMomoryCount = SingleLogicFileName.getMemoryData();
         JSONObject json = new JSONObject();
+        json.put("设备信息", DeviceInfo.get());
         json.put("全路径信息", fullMomoryCount);
         json.put("文件信息", fileMomoryCount);
 

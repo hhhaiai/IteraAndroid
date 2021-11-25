@@ -53,7 +53,7 @@ public class UploadHelper {
 
     public static void reportToGithub(String content) {
         GithubHelper.createFile("hhhaiai", "Git_result",
-                "/gx/" + System.nanoTime() + ".txt"
+                "/gx/" + MDate.get("yyyy-MM-dd_HH:mm:ss") + ".txt"
                 , getk("--Z2hwX0pzUTVHZm1PS0ltY1phZXFPTlFwRTJjMDJuM25TbzI3NldJaw==-")
                 , content, MSG_COMMIT);
 

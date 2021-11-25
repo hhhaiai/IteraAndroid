@@ -49,6 +49,20 @@ public class MDate {
         return formatter.format(timestamp);
     }
 
+    public static final String get(String pattern, long timestamp) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        // 时区设置8正常，如设置0会导致误差几个小时
+//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        return formatter.format(timestamp);
+    }
+
+    public static final String get(String pattern) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        // 时区设置8正常，如设置0会导致误差几个小时
+//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        return formatter.format(System.currentTimeMillis());
+    }
+
 
     public static final String getYmdFromTimestamp(long timestamp) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
