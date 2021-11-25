@@ -1,6 +1,7 @@
 package me.hhhaiai.jitera.logic;
 
 import me.hhhaiai.jitera.utils.ShellUtils;
+import me.hhhaiai.jitera.utils.TextUtils;
 import org.json.JSONArray;
 
 import java.util.List;
@@ -24,5 +25,13 @@ public class DeviceInfo {
             return res;
         }
         return new JSONArray(props);
+    }
+
+    public static String getmodel() {
+        return ShellUtils.getStringUseAdb("getprop ro.product.model").replaceAll(" ","_");
+    }
+
+    public static String getVersion() {
+        return ShellUtils.getStringUseAdb("getprop ro.build.version.sdk").replaceAll(" ","_");
     }
 }

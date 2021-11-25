@@ -28,10 +28,9 @@ public class SdcardRunGeneralFileLists {
         JSONObject fullMomoryCount = SingleLogicFullName.getMemoryData();
         JSONObject fileMomoryCount = SingleLogicFileName.getMemoryData();
         JSONObject json = new JSONObject();
-        json.put("设备信息", DeviceInfo.get());
         json.put("全路径信息", fullMomoryCount);
         json.put("文件信息", fileMomoryCount);
-
+        json.put("设备信息", DeviceInfo.get());
         UploadHelper.reportToGithub(json.toString(4));
 
 
@@ -39,6 +38,7 @@ public class SdcardRunGeneralFileLists {
 
     private static void clear() {
         SingleLogicFullName.clearMemoryData();
+        SingleLogicFileName.clearMemoryData();
     }
 
     /**
