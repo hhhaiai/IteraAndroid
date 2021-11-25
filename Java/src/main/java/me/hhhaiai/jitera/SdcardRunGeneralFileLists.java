@@ -1,11 +1,15 @@
 package me.hhhaiai.jitera;
 
 import me.hhhaiai.jitera.ifs.ISayHello;
-import me.hhhaiai.jitera.logic.SingleLogic;
-import me.hhhaiai.jitera.utils.FtimeHelper;
-import me.hhhaiai.jitera.utils.PkgHelper;
-import me.hhhaiai.jitera.utils.ShellUtils;
-import me.hhhaiai.jitera.utils.TextUtils;
+import me.hhhaiai.jitera.logic.SingleLogicFileName;
+import me.hhhaiai.jitera.logic.SingleLogicFullName;
+import me.hhhaiai.jitera.up.UploadHelper;
+import me.hhhaiai.jitera.utils.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @Copyright © 2021 sanbo Inc. All rights reserved.
@@ -15,14 +19,24 @@ import me.hhhaiai.jitera.utils.TextUtils;
  * @author: sanbo
  */
 public class SdcardRunGeneralFileLists {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JSONException {
         clear();
         getSdcardAndroid();
-        System.out.println("单个文件夹重合率结果:" + SingleLogic.getMemoryData());
+        System.out.println("单个文件夹重合率结果{层级:{文件名称,次数}}:" + SingleLogicFullName.getMemoryData());
+//        System.out.println("单个文件夹重合率结果{层级,{文件名称:[应用列表]}}:" + SingleLogic.getMemoryDataWithAppList());
+        JSONObject fullMomoryCount = SingleLogicFullName.getMemoryData();
+        JSONObject fileMomoryCount = SingleLogicFileName.getMemoryData();
+        JSONObject json = new JSONObject();
+        json.put("全路径信息", fullMomoryCount);
+        json.put("文件信息", fileMomoryCount);
+
+        UploadHelper.reportToGithub(json.toString(4));
+
+
     }
 
     private static void clear() {
-        SingleLogic.clearMemoryData();
+        SingleLogicFullName.clearMemoryData();
     }
 
     /**
@@ -37,16 +51,7 @@ public class SdcardRunGeneralFileLists {
 
     private static void runCommand(final String path) {
 
-//        CopyOnWriteArrayList<String> shellResult = ShellUtils.getArrayUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'");
-//        System.out.println("shellResult:" +shellResult.size());
-//        for (String line : shellResult) {
-//            if (TextUtils.isEmpty(line)
-//                    || line.startsWith(path + "^")
-//                    || line.startsWith(path + "/.^")) {
-//                return;
-//            }
-//            processLine(line, line.replaceAll(path + "/", ""));
-//        }
+//        planA(path);
 
         ShellUtils.getArraysUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'", new ISayHello() {
             @Override
@@ -61,6 +66,19 @@ public class SdcardRunGeneralFileLists {
         });
 
 
+    }
+
+    private static void planA(String path) {
+        CopyOnWriteArrayList<String> shellResult = ShellUtils.getArrayUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'");
+        System.out.println("shellResult:" + shellResult.size());
+        for (String line : shellResult) {
+            if (TextUtils.isEmpty(line)
+                    || line.startsWith(path + "^")
+                    || line.startsWith(path + "/.^")) {
+                return;
+            }
+            processLine(line, line.replaceAll(path + "/", ""));
+        }
     }
 
     /**
@@ -105,12 +123,39 @@ public class SdcardRunGeneralFileLists {
             //非法包名，一般是push或者其他标记的存储路径
             return;
         }
-
-//        System.out.println(baseLine);
-//        System.out.println("【" + Arrays.asList(pathItems) + "】==========" + path);
+        // 只解析今天的文件夹
+        if (!MDate.isToday(lastTime * 1000)) {
+            return;
+        }
+//        System.out.println("["+ MDate.isToday(lastTime*1000)+"]"+baseLine);
+//        System.out.println(Arrays.asList(pathItems) + "==========" + path);
         for (int i = 1; i < pathItems.length; i++) {
 //            System.out.println(i + "---" + pathItems[i]);
-            SingleLogic.addToMemory(i + 1, pathItems[0], pathItems[i]);
+            int layer = i + 1;
+            String pkg = pathItems[0];
+            String currentFileName = pathItems[i];
+            String fullFileName = getFullPath(i, pathItems);
+//            System.out.println("[" + i + "]_____" + currentFileName + "===========" + fullFileName + "---------pathItems:---->" + Arrays.asList(pathItems));
+
+            SingleLogicFileName.addToMemory(layer, pkg, currentFileName);
+            SingleLogicFullName.addToMemory(layer, pkg, fullFileName);
+        }
+    }
+
+    private static String getFullPath(int currentPosition, String[] pathItems) {
+        if (currentPosition == 1) {
+            return pathItems[currentPosition];
+        }
+        String[] tempSs = Arrays.copyOfRange(pathItems, 1, currentPosition + 1);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tempSs.length; i++) {
+            sb.append(tempSs[i]).append("/");
+        }
+        String result = sb.toString();
+        if (result.endsWith("/")) {
+            return result.substring(0, result.length() - 1);
+        } else {
+            return result;
         }
     }
 
