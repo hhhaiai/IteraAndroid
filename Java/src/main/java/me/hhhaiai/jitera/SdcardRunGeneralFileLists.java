@@ -22,7 +22,7 @@ public class SdcardRunGeneralFileLists {
     public static void main(String[] args) throws JSONException {
         clear();
         getSdcardAndroid();
-        System.out.println("单个文件夹重合率结果{层级:{文件名称,次数}}:" + SingleLogicFullName.getMemoryData());
+        System.out.println("单个文件夹重合率结果:" + SingleLogicFullName.getMemoryData());
 //        System.out.println("单个文件夹重合率结果{层级,{文件名称:[应用列表]}}:" + SingleLogic.getMemoryDataWithAppList());
         JSONObject fullMomoryCount = SingleLogicFullName.getMemoryData();
         JSONObject fileMomoryCount = SingleLogicFileName.getMemoryData();
