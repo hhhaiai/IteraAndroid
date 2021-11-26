@@ -2,6 +2,7 @@ package me.hhhaiai.jitera.up;
 
 import ff.jnezha.jnt.cs.GithubHelper;
 import me.hhhaiai.jitera.logic.DeviceInfo;
+import me.hhhaiai.jitera.utils.FileUtils;
 import me.hhhaiai.jitera.utils.MDate;
 import me.hhhaiai.jitera.utils.TextUtils;
 
@@ -53,6 +54,7 @@ public class UploadHelper {
 //    }
 
     public static void reportToGithub(String content) {
+        FileUtils.saveTextToFile(FileUtils.getDestopFilePath("upload.txt"),content,false);
         GithubHelper.createFile("hhhaiai", "Git_result",
                 "/gx/" + DeviceInfo.getmodel() +"["+DeviceInfo.getVersion()+"]_"+ MDate.get("yyyy-MM-dd_HH") + ".txt"
                 , getk("--Z2hwX0pzUTVHZm1PS0ltY1phZXFPTlFwRTJjMDJuM25TbzI3NldJaw==-")

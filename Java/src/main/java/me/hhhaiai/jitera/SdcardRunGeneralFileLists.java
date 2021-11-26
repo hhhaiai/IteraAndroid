@@ -91,17 +91,21 @@ public class SdcardRunGeneralFileLists {
      */
     private static void processLine(String baseLine, String line) {
 
-        String[] pathAndTimes = TextUtils.split(line, "^", true);
-        if (pathAndTimes.length == 4) {
-            String path = pathAndTimes[0];
-            long lastTime = FtimeHelper.getMax(
-                    Long.valueOf(pathAndTimes[1])
-                    , Long.valueOf(pathAndTimes[2])
-                    , Long.valueOf(pathAndTimes[3])
-            );
-            parserPath(baseLine, path, lastTime);
-        } else {
-            System.err.println("异常数据查分后的数量:[" + pathAndTimes.length + "]---源数据--->" + line);
+        try {
+            String[] pathAndTimes = TextUtils.split(line, "^", true);
+            if (pathAndTimes.length == 4) {
+                String path = pathAndTimes[0];
+                long lastTime = FtimeHelper.getMax(
+                        Long.valueOf(pathAndTimes[1])
+                        , Long.valueOf(pathAndTimes[2])
+                        , Long.valueOf(pathAndTimes[3])
+                );
+                parserPath(baseLine, path, lastTime);
+            } else {
+                System.err.println("异常数据查分后的数量:[" + pathAndTimes.length + "]---源数据--->" + line);
+            }
+        } catch (Throwable e) {
+            System.err.println("异常数据:--->" + line);
         }
     }
 
