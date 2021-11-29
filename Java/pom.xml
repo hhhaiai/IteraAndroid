@@ -165,7 +165,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>me.hhhaiai.jitera.SdcardRunGeneralFileLists</mainClass>
+                            <mainClass>me.hhhaiai.jitera.MainIner</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

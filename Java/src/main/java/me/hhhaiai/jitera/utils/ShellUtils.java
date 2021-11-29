@@ -10,47 +10,35 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ShellUtils {
 
     public static List<String> getResultArray(String cmd) {
-        List<String> result = new ArrayList<String>();
-        Process proc = null;
-        BufferedInputStream in = null;
-        BufferedReader br = null;
-        InputStreamReader is = null;
-        InputStream ii = null;
-        DataOutputStream os = null;
-        OutputStream pos = null;
-        try {
-            proc = Runtime.getRuntime().exec("sh");
-            pos = proc.getOutputStream();
-            os = new DataOutputStream(pos);
+        return (List<String>) getRealResult(true, cmd);
+    }
 
-            // donnot use os.writeBytes(commmand), avoid chinese charset error
-            os.write(cmd.getBytes());
-            os.writeBytes("\n");
-            os.flush();
-            //exitValue
-            os.writeBytes("exit\n");
-            os.flush();
-            ii = proc.getInputStream();
-            in = new BufferedInputStream(ii);
-            is = new InputStreamReader(in);
-            br = new BufferedReader(is);
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                if (!TextUtils.isEmpty(line) && !result.contains(line)) {
-                    result.add(line);
-                }
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        } finally {
-            safeClose(pos, ii, br, is, in, os);
-        }
+    public static void shellCmd(String cmd) {
+        getResultString(cmd);
+    }
 
-        return result;
+    public static void shellCmds(String... cmd) {
+        getResultArrs(cmd);
     }
 
     public static String getResultString(String cmd) {
-        String result = "";
+        return getResultArrs(cmd);
+    }
+
+    public static String getResultArrs(String... cmd) {
+        return (String) getRealResult(false, cmd);
+    }
+
+    public static Object getRealResult(boolean isArrayResult, String... cmd) {
+        String strResult = "";
+        List<String> arrResult = new ArrayList<String>();
+        if (cmd == null || cmd.length == 0) {
+            if (isArrayResult) {
+                return arrResult;
+            } else {
+                return strResult;
+            }
+        }
         Process proc = null;
         BufferedInputStream in = null;
         BufferedReader br = null;
@@ -64,9 +52,12 @@ public class ShellUtils {
             pos = proc.getOutputStream();
             os = new DataOutputStream(pos);
 
-            os.write(cmd.getBytes());
-            os.writeBytes("\n");
-            os.flush();
+            for (int i = 0; i < cmd.length; i++) {
+                os.write(cmd[i].getBytes());
+                os.writeBytes("\n");
+                os.flush();
+            }
+
             //exitValue
             os.writeBytes("exit\n");
             os.flush();
@@ -76,22 +67,35 @@ public class ShellUtils {
             br = new BufferedReader(is);
             String line = "";
             while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
+                if (!isArrayResult) {
+                    sb.append(line).append("\n");
+                } else {
+                    if (!TextUtils.isEmpty(line)) {
+                        arrResult.add(line);
+                    }
+                }
             }
-            if (sb.length() > 0) {
-                return sb.substring(0, sb.length() - 1);
+            if (!isArrayResult) {
+                if (sb.length() > 0) {
+                    return sb.substring(0, sb.length() - 1);
+                }
+                strResult = String.valueOf(sb);
+                if (!TextUtils.isEmpty(strResult)) {
+                    strResult = strResult.trim();
+                }
             }
-            result = String.valueOf(sb);
-            if (!TextUtils.isEmpty(result)) {
-                result = result.trim();
-            }
+
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
             safeClose(pos, ii, br, is, in, os);
         }
 
-        return result;
+        if (isArrayResult) {
+            return arrResult;
+        } else {
+            return strResult;
+        }
     }
 
     public static String getStringUseAdb(String cmd) {

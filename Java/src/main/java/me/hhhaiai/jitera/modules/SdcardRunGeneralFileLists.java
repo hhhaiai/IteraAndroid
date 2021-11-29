@@ -1,4 +1,4 @@
-package me.hhhaiai.jitera;
+package me.hhhaiai.jitera.modules;
 
 import me.hhhaiai.jitera.ifs.ISayHello;
 import me.hhhaiai.jitera.logic.DeviceInfo;
@@ -20,7 +20,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author: sanbo
  */
 public class SdcardRunGeneralFileLists {
-    public static void main(String[] args) throws JSONException {
+//    public static void main(String[] args) throws JSONException {
+//        run();
+//    }
+
+    public static void run() throws JSONException {
         clear();
         getSdcardAndroid();
         System.out.println("单个文件夹重合率结果:" + SingleLogicFullName.getMemoryData());
@@ -32,8 +36,6 @@ public class SdcardRunGeneralFileLists {
         json.put("文件信息", fileMomoryCount);
         json.put("设备信息", DeviceInfo.get());
         UploadHelper.reportToGithub(json.toString(4));
-
-
     }
 
     private static void clear() {
