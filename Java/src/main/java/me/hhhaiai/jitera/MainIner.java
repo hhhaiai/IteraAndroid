@@ -1,5 +1,7 @@
 package me.hhhaiai.jitera;
 
+import me.hhhaiai.jitera.modules.CardInfos;
+import me.hhhaiai.jitera.modules.Prepare;
 import org.json.JSONException;
 
 /**
@@ -10,11 +12,12 @@ import org.json.JSONException;
  * @author: sanbo
  */
 public class MainIner {
-    public static void main(String[] args) throws JSONException {
-//        // 1. prepare
+    public static void main(String[] args) throws Exception {
+        // 1. prepare
 //        Prepare.prepare();
 //        //2. sdcard dir see
 //        SdcardRunGeneralFileLists.run();
-        // 3. 
+        // 3. parser CardInfo
+        CardInfos.run();
     }
 }
