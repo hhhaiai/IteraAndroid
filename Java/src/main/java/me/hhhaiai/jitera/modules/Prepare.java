@@ -22,7 +22,7 @@ public class Prepare {
             f.deleteOnExit();
         }
         if (!f.exists()) {
-            //need clone
+            // need clone
             ShellUtils.shellCmd("git clone  https://github.com/hhhaiai/Git_result.git");
         } else {
             // need sync

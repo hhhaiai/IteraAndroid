@@ -58,7 +58,7 @@ public class ShellUtils {
                 os.flush();
             }
 
-            //exitValue
+            // exitValue
             os.writeBytes("exit\n");
             os.flush();
             ii = proc.getInputStream();
@@ -141,12 +141,12 @@ public class ShellUtils {
         return result;
     }
 
-
     public static CopyOnWriteArrayList<String> getArrayUseAdb(String cmd) {
         return getArrayUseAdb(cmd, null, null);
     }
 
-    public static CopyOnWriteArrayList<String> getArrayUseAdb(String cmd, String replaceBeforeStr, String replaceAfterStr) {
+    public static CopyOnWriteArrayList<String> getArrayUseAdb(
+            String cmd, String replaceBeforeStr, String replaceAfterStr) {
         Process proc = null;
         BufferedInputStream in = null;
         BufferedReader br = null;
@@ -164,7 +164,7 @@ public class ShellUtils {
             os.write(cmd.getBytes());
             os.writeBytes("\n");
             os.flush();
-            //exitValue
+            // exitValue
             os.writeBytes("exit\n");
             os.flush();
             ii = proc.getInputStream();
@@ -178,10 +178,8 @@ public class ShellUtils {
                     processedLine = processLine(line, replaceBeforeStr, replaceAfterStr);
                     results.add(processedLine.trim());
                 } else {
-                    //空值暂不处理
+                    // 空值暂不处理
                 }
-
-
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -192,8 +190,7 @@ public class ShellUtils {
         return results;
     }
 
-    public static void getArraysUseAdb(String cmd
-            , final ISayHello call) {
+    public static void getArraysUseAdb(String cmd, final ISayHello call) {
         getArraysUseAdb(cmd, call, null, null, false);
     }
 
@@ -205,11 +202,12 @@ public class ShellUtils {
      * @param isNeedResult 需要返回值
      * @return
      */
-    public static CopyOnWriteArrayList<String> getArraysUseAdb(String cmd
-            , final ISayHello call
-            , String replaceBeforeStr
-            , String replaceAfterStr
-            , boolean isNeedResult) {
+    public static CopyOnWriteArrayList<String> getArraysUseAdb(
+            String cmd,
+            final ISayHello call,
+            String replaceBeforeStr,
+            String replaceAfterStr,
+            boolean isNeedResult) {
 
         Process proc = null;
         BufferedInputStream in = null;
@@ -228,7 +226,7 @@ public class ShellUtils {
             os.write(cmd.getBytes());
             os.writeBytes("\n");
             os.flush();
-            //exitValue
+            // exitValue
             os.writeBytes("exit\n");
             os.flush();
             ii = proc.getInputStream();
@@ -247,10 +245,8 @@ public class ShellUtils {
                         call.onProcessLine(processedLine);
                     }
                 } else {
-                    //空值暂不处理
+                    // 空值暂不处理
                 }
-
-
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -261,8 +257,8 @@ public class ShellUtils {
         return results;
     }
 
-    private static String processLine(String line, String replaceBeforeStr, String replaceAfterStr) {
-
+    private static String processLine(
+            String line, String replaceBeforeStr, String replaceAfterStr) {
 
         // 被替换的值不能为空,不然替换个毛
         if (TextUtils.isEmpty(replaceBeforeStr)) {
@@ -278,11 +274,9 @@ public class ShellUtils {
         }
     }
 
-
     private static void safeClose(Closeable... obj) {
         if (obj != null && obj.length > 0) {
-            for (Closeable close : obj
-            ) {
+            for (Closeable close : obj) {
 
                 try {
                     close.close();
@@ -292,5 +286,4 @@ public class ShellUtils {
             }
         }
     }
-
 }

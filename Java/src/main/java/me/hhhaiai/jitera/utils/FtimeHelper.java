@@ -1,6 +1,5 @@
 package me.hhhaiai.jitera.utils;
 
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -104,7 +103,6 @@ public class FtimeHelper {
         return pr;
     }
 
-
     public static Pair<Long, String> getFilesMaxTime(Set<String> paths) {
         Pair<Long, String> pr = new Pair<Long, String>(0L, "");
         try {
@@ -175,6 +173,4 @@ public class FtimeHelper {
 
         return pr;
     }
-
-
 }

@@ -1,20 +1,22 @@
-//package me.hhhaiai.jitera.demo;
+// package me.hhhaiai.jitera.demo;
 //
-//import java.util.Arrays;
+// import java.util.Arrays;
 //
-///**
+/// **
 // * @Copyright © 2021 sanbo Inc. All rights reserved.
 // * @Description: TODO
 // * @Version: 1.0
 // * @Create: 2021/11/25 2:55 下午
 // * @author: sanbo
 // */
-//public class SplitDemo {
+// public class SplitDemo {
 //
 //    public static void main(String[] args) {
-////        String[] s1 = new String[]{"com.eg.android.AlipayGphone", "files", "Sandbox", "B_d407656e84c3c5a2", "multimedia", "623039e4445e6f7d61e132b6c613822d", "38"};
+////        String[] s1 = new String[]{"com.eg.android.AlipayGphone", "files", "Sandbox",
+// "B_d407656e84c3c5a2", "multimedia", "623039e4445e6f7d61e132b6c613822d", "38"};
 ////        String[] s1 = new String[]{"com.eg.android.AlipayGphone", "files", "nebulaH5App"};
-//        String[] s1 = new String[]{"com.eg.android.AlipayGphone", "files", "Sandbox", "B_d407656e84c3c5a2", "multimedia", "623039e4445e6f7d61e132b6c613822d", "3d"};
+//        String[] s1 = new String[]{"com.eg.android.AlipayGphone", "files", "Sandbox",
+// "B_d407656e84c3c5a2", "multimedia", "623039e4445e6f7d61e132b6c613822d", "3d"};
 ////        String b[] = Arrays.copyOfRange(s1, 2, 6);// 截取索引2（包括）到索引6（不包括）的元素
 ////        System.out.println("1:" + getFullPath(1, s1));
 //        System.out.println("1:" + getFullPath(1, s1));
@@ -41,4 +43,4 @@
 //            return result;
 //        }
 //    }
-//}
+// }

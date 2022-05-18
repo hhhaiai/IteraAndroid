@@ -12,7 +12,6 @@ public class TextUtils {
         return str == null || str.length() == 0;
     }
 
-
     /**
      * 处理文件路径含空格的情况
      *
@@ -30,7 +29,7 @@ public class TextUtils {
         if (line.contains(regex)) {
             return line.split(wrapper(regex, isNeedWrapper));
         }
-        return new String[]{};
+        return new String[] {};
     }
 
     private static String wrapper(String regex, boolean isNeedWrapper) {

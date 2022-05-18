@@ -16,7 +16,6 @@
 
 package org.json;
 
-
 // Note: this class was written without inspecting the non-free org.json sourcecode.
 
 /**
@@ -366,8 +365,11 @@ public class JSONTokener {
                 if (name == null) {
                     throw syntaxError("Names cannot be null");
                 } else {
-                    throw syntaxError("Names must be strings, but " + name
-                            + " is of type " + name.getClass().getName());
+                    throw syntaxError(
+                            "Names must be strings, but "
+                                    + name
+                                    + " is of type "
+                                    + name.getClass().getName());
                 }
             }
 

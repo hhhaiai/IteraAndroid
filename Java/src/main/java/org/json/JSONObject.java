@@ -18,7 +18,6 @@ package org.json;
 
 import java.util.*;
 
-
 // Note: this class was written without inspecting the non-free org.json sourcecode.
 
 /**
@@ -92,23 +91,25 @@ public class JSONObject {
      * returning true when compared to {@code null}. Its {@link #toString}
      * method returns "null".
      */
-    public static final Object NULL = new Object() {
-        @Override
-        public boolean equals(Object o) {
-            return o == this || o == null; // API specifies this broken equals implementation
-        }
+    public static final Object NULL =
+            new Object() {
+                @Override
+                public boolean equals(Object o) {
+                    return o == this
+                            || o == null; // API specifies this broken equals implementation
+                }
 
-        // at least make the broken equals(null) consistent with Objects.hashCode(null).
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(null);
-        }
+                // at least make the broken equals(null) consistent with Objects.hashCode(null).
+                @Override
+                public int hashCode() {
+                    return Objects.hashCode(null);
+                }
 
-        @Override
-        public String toString() {
-            return "null";
-        }
-    };
+                @Override
+                public String toString() {
+                    return "null";
+                }
+            };
 
     private final LinkedHashMap<String, Object> nameValuePairs;
 
@@ -147,11 +148,11 @@ public class JSONObject {
                 }
                 nameValuePairs.put(skey, wrap(entry.getValue()));
             }
-//            String key = (String) entry.getKey();
-//            if (key == null) {
-//                throw new NullPointerException("key == null");
-//            }
-//            nameValuePairs.put(key, wrap(entry.getValue()));
+            //            String key = (String) entry.getKey();
+            //            if (key == null) {
+            //                throw new NullPointerException("key == null");
+            //            }
+            //            nameValuePairs.put(key, wrap(entry.getValue()));
         }
     }
 
@@ -815,15 +816,15 @@ public class JSONObject {
             if (o instanceof Map) {
                 return new JSONObject((Map) o);
             }
-            if (o instanceof Boolean ||
-                    o instanceof Byte ||
-                    o instanceof Character ||
-                    o instanceof Double ||
-                    o instanceof Float ||
-                    o instanceof Integer ||
-                    o instanceof Long ||
-                    o instanceof Short ||
-                    o instanceof String) {
+            if (o instanceof Boolean
+                    || o instanceof Byte
+                    || o instanceof Character
+                    || o instanceof Double
+                    || o instanceof Float
+                    || o instanceof Integer
+                    || o instanceof Long
+                    || o instanceof Short
+                    || o instanceof String) {
                 return o;
             }
             if (o.getClass().getPackage().getName().startsWith("java.")) {

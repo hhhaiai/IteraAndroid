@@ -6,6 +6,7 @@ import me.hhhaiai.jitera.logic.SingleLogicFileName;
 import me.hhhaiai.jitera.logic.SingleLogicFullName;
 import me.hhhaiai.jitera.up.UploadHelper;
 import me.hhhaiai.jitera.utils.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,15 +21,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author: sanbo
  */
 public class SdcardRunGeneralFileLists {
-//    public static void main(String[] args) throws JSONException {
-//        run();
-//    }
+    //    public static void main(String[] args) throws JSONException {
+    //        run();
+    //    }
 
     public static void run() throws JSONException {
         clear();
         getSdcardAndroid();
         System.out.println("单个文件夹重合率结果:" + SingleLogicFullName.getMemoryData());
-//        System.out.println("单个文件夹重合率结果{层级,{文件名称:[应用列表]}}:" + SingleLogic.getMemoryDataWithAppList());
+        //        System.out.println("单个文件夹重合率结果{层级,{文件名称:[应用列表]}}:" +
+        // SingleLogic.getMemoryDataWithAppList());
         JSONObject fullMomoryCount = SingleLogicFullName.getMemoryData();
         JSONObject fileMomoryCount = SingleLogicFileName.getMemoryData();
         JSONObject json = new JSONObject();
@@ -55,25 +57,26 @@ public class SdcardRunGeneralFileLists {
 
     private static void runCommand(final String path) {
 
-//        planA(path);
+        //        planA(path);
 
-        ShellUtils.getArraysUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'", new ISayHello() {
-            @Override
-            public void onProcessLine(String line) {
-                if (TextUtils.isEmpty(line)
-                        || line.startsWith(path + "^")
-                        || line.startsWith(path + "/.^")) {
-                    return;
-                }
-                processLine(line, line.replaceAll(path + "/", ""));
-            }
-        });
-
-
+        ShellUtils.getArraysUseAdb(
+                "find " + path + "|xargs stat -c '%n^%X^%Y^%Z'",
+                new ISayHello() {
+                    @Override
+                    public void onProcessLine(String line) {
+                        if (TextUtils.isEmpty(line)
+                                || line.startsWith(path + "^")
+                                || line.startsWith(path + "/.^")) {
+                            return;
+                        }
+                        processLine(line, line.replaceAll(path + "/", ""));
+                    }
+                });
     }
 
     private static void planA(String path) {
-        CopyOnWriteArrayList<String> shellResult = ShellUtils.getArrayUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'");
+        CopyOnWriteArrayList<String> shellResult =
+                ShellUtils.getArrayUseAdb("find " + path + "|xargs stat -c '%n^%X^%Y^%Z'");
         System.out.println("shellResult:" + shellResult.size());
         for (String line : shellResult) {
             if (TextUtils.isEmpty(line)
@@ -97,11 +100,11 @@ public class SdcardRunGeneralFileLists {
             String[] pathAndTimes = TextUtils.split(line, "^", true);
             if (pathAndTimes.length == 4) {
                 String path = pathAndTimes[0];
-                long lastTime = FtimeHelper.getMax(
-                        Long.valueOf(pathAndTimes[1])
-                        , Long.valueOf(pathAndTimes[2])
-                        , Long.valueOf(pathAndTimes[3])
-                );
+                long lastTime =
+                        FtimeHelper.getMax(
+                                Long.valueOf(pathAndTimes[1]),
+                                Long.valueOf(pathAndTimes[2]),
+                                Long.valueOf(pathAndTimes[3]));
                 parserPath(baseLine, path, lastTime);
             } else {
                 System.err.println("异常数据查分后的数量:[" + pathAndTimes.length + "]---源数据--->" + line);
@@ -119,31 +122,33 @@ public class SdcardRunGeneralFileLists {
      * @param lastTime
      */
     private static void parserPath(String baseLine, String path, long lastTime) {
-//        System.out.println(MDate.getDateFromTimestamp(lastTime * 1000) + "-------->" + path);
+        //        System.out.println(MDate.getDateFromTimestamp(lastTime * 1000) + "-------->" +
+        // path);
         String[] pathItems = TextUtils.split(path, "/", false);
-        //只有包名的元素
+        // 只有包名的元素
         if (pathItems.length == 0) {
-            //只有包名，没有二级目录
+            // 只有包名，没有二级目录
             return;
         }
 
         if (!PkgHelper.isEfficientPkg(pathItems[0])) {
-            //非法包名，一般是push或者其他标记的存储路径
+            // 非法包名，一般是push或者其他标记的存储路径
             return;
         }
         // 只解析今天的文件夹
         if (!MDate.isToday(lastTime * 1000)) {
             return;
         }
-//        System.out.println("["+ MDate.isToday(lastTime*1000)+"]"+baseLine);
-//        System.out.println(Arrays.asList(pathItems) + "==========" + path);
+        //        System.out.println("["+ MDate.isToday(lastTime*1000)+"]"+baseLine);
+        //        System.out.println(Arrays.asList(pathItems) + "==========" + path);
         for (int i = 1; i < pathItems.length; i++) {
-//            System.out.println(i + "---" + pathItems[i]);
+            //            System.out.println(i + "---" + pathItems[i]);
             int layer = i + 1;
             String pkg = pathItems[0];
             String currentFileName = pathItems[i];
             String fullFileName = getFullPath(i, pathItems);
-//            System.out.println("[" + i + "]_____" + currentFileName + "===========" + fullFileName + "---------pathItems:---->" + Arrays.asList(pathItems));
+            //            System.out.println("[" + i + "]_____" + currentFileName + "===========" +
+            // fullFileName + "---------pathItems:---->" + Arrays.asList(pathItems));
 
             SingleLogicFileName.addToMemory(layer, pkg, currentFileName);
             SingleLogicFullName.addToMemory(layer, pkg, fullFileName);
@@ -171,11 +176,13 @@ public class SdcardRunGeneralFileLists {
      * 获取所有的sdcard文件
      */
     private static void getAllSdcard() {
-        ShellUtils.getArraysUseAdb("find /sdcard/|xargs stat -c '%n^%X^%Y^%Z'", new ISayHello() {
-            @Override
-            public void onProcessLine(String line) {
-                System.out.println(line);
-            }
-        });
+        ShellUtils.getArraysUseAdb(
+                "find /sdcard/|xargs stat -c '%n^%X^%Y^%Z'",
+                new ISayHello() {
+                    @Override
+                    public void onProcessLine(String line) {
+                        System.out.println(line);
+                    }
+                });
     }
 }

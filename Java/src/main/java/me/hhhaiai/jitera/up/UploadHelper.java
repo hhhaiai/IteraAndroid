@@ -1,6 +1,7 @@
 package me.hhhaiai.jitera.up;
 
 import ff.jnezha.jnt.cs.GithubHelper;
+
 import me.hhhaiai.jitera.logic.DeviceInfo;
 import me.hhhaiai.jitera.utils.FileUtils;
 import me.hhhaiai.jitera.utils.MDate;
@@ -34,7 +35,9 @@ public class UploadHelper {
                 e.printStackTrace();
             }
         }
-        MSG_COMMIT = String.format("Upload by  %s via %s . time: %s", userName, computerName, MDate.getNow());
+        MSG_COMMIT =
+                String.format(
+                        "Upload by  %s via %s . time: %s", userName, computerName, MDate.getNow());
     }
 
     public static String getk(String k) {
@@ -48,19 +51,24 @@ public class UploadHelper {
         return "";
     }
 
-
-//    public static void main(String[] args) {
-//        reportToGithub("ss");
-//    }
+    //    public static void main(String[] args) {
+    //        reportToGithub("ss");
+    //    }
 
     public static void reportToGithub(String content) {
-        FileUtils.saveTextToFile(FileUtils.getDestopFilePath("upload.txt"),content,false);
-        GithubHelper.createFile("hhhaiai", "Git_result",
-                "/gx/" + DeviceInfo.getmodel() +"["+DeviceInfo.getVersion()+"]_"+ MDate.get("yyyy-MM-dd_HH") + ".txt"
-                , getk("--Z2hwX0pzUTVHZm1PS0ltY1phZXFPTlFwRTJjMDJuM25TbzI3NldJaw==-")
-                , content, MSG_COMMIT);
-
+        FileUtils.saveTextToFile(FileUtils.getDestopFilePath("upload.txt"), content, false);
+        GithubHelper.createFile(
+                "hhhaiai",
+                "Git_result",
+                "/gx/"
+                        + DeviceInfo.getmodel()
+                        + "["
+                        + DeviceInfo.getVersion()
+                        + "]_"
+                        + MDate.get("yyyy-MM-dd_HH")
+                        + ".txt",
+                getk("--Z2hwX0pzUTVHZm1PS0ltY1phZXFPTlFwRTJjMDJuM25TbzI3NldJaw==-"),
+                content,
+                MSG_COMMIT);
     }
-
-
 }

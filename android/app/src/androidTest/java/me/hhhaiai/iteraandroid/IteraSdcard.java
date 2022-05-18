@@ -8,14 +8,14 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import junit.framework.TestCase;
 
+import me.hhhaiai.iteraandroid.utils.ISayHello;
+import me.hhhaiai.iteraandroid.utils.Shell;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.hhhaiai.iteraandroid.utils.ISayHello;
-import me.hhhaiai.iteraandroid.utils.Shell;
 
 /**
  * @Copyright © 2021 sanbo Inc. All rights reserved.
@@ -32,12 +32,15 @@ public class IteraSdcard extends TestCase {
     @Test
     public void getAppSdcardInfo() {
         log("getAppSdcardInfo beging....");
-        Shell.getArrays("find  /sdcard/ |xargs stat -c '%n %X %Y %Z'", new ISayHello() {
-            @Override
-            public void onProcessLine(String line) {
-                log(line);
-            }
-        }, false);
+        Shell.getArrays(
+                "find  /sdcard/ |xargs stat -c '%n %X %Y %Z'",
+                new ISayHello() {
+                    @Override
+                    public void onProcessLine(String line) {
+                        log(line);
+                    }
+                },
+                false);
         log("getAppSdcardInfo end....");
     }
 

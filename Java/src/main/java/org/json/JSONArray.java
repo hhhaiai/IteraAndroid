@@ -16,7 +16,6 @@
 
 package org.json;
 
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -291,7 +290,8 @@ public class JSONArray {
             }
             return value;
         } catch (IndexOutOfBoundsException e) {
-            throw new JSONException("Index " + index + " out of range [0.." + values.size() + ")", e);
+            throw new JSONException(
+                    "Index " + index + " out of range [0.." + values.size() + ")", e);
         }
     }
 

@@ -1,8 +1,6 @@
 package me.hhhaiai.jitera;
 
 import me.hhhaiai.jitera.modules.CardInfos;
-import me.hhhaiai.jitera.modules.Prepare;
-import org.json.JSONException;
 
 /**
  * @Copyright © 2021 sanbo Inc. All rights reserved.
@@ -14,9 +12,9 @@ import org.json.JSONException;
 public class MainIner {
     public static void main(String[] args) throws Exception {
         // 1. prepare
-//        Prepare.prepare();
-//        //2. sdcard dir see
-//        SdcardRunGeneralFileLists.run();
+        //        Prepare.prepare();
+        //        //2. sdcard dir see
+        //        SdcardRunGeneralFileLists.run();
         // 3. parser CardInfo
         CardInfos.run();
     }

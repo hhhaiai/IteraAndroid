@@ -10,9 +10,7 @@ public class PkgHelper {
      *  false:无效包名
      */
     public static boolean isEfficientPkg(String pkgName) {
-        if (!TextUtils.isEmpty(pkgName)
-                && !pkgName.startsWith(".")
-                && pkgName.contains(".")) {
+        if (!TextUtils.isEmpty(pkgName) && !pkgName.startsWith(".") && pkgName.contains(".")) {
             return true;
         } else {
             return false;

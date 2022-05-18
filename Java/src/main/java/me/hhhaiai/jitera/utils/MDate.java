@@ -1,11 +1,9 @@
 package me.hhhaiai.jitera.utils;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MDate {
-
 
     public static String getTime() {
         return new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis()));
@@ -20,13 +18,14 @@ public class MDate {
     }
 
     public static final String getNow() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                .format(new Date(System.currentTimeMillis()));
     }
 
     public static final int getHour() {
-        return Integer.valueOf(new SimpleDateFormat("HH").format(new Date(System.currentTimeMillis())));
+        return Integer.valueOf(
+                new SimpleDateFormat("HH").format(new Date(System.currentTimeMillis())));
     }
-
 
     /**
      * 毫秒转换 HH:mm:ss:SSS
@@ -45,28 +44,27 @@ public class MDate {
     public static final String getDateFromTimestamp(long timestamp) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 时区设置8正常，如设置0会导致误差几个小时
-//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        //        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         return formatter.format(timestamp);
     }
 
     public static final String get(String pattern, long timestamp) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         // 时区设置8正常，如设置0会导致误差几个小时
-//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        //        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         return formatter.format(timestamp);
     }
 
     public static final String get(String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         // 时区设置8正常，如设置0会导致误差几个小时
-//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        //        formatter.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         return formatter.format(System.currentTimeMillis());
     }
 
-
     public static final String getYmdFromTimestamp(long timestamp) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+        //        formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
         return formatter.format(timestamp);
     }
 
@@ -93,7 +91,6 @@ public class MDate {
         return System.currentTimeMillis() < timestamp;
     }
 
-
     /**
      * 在某个时间内
      *
@@ -111,7 +108,8 @@ public class MDate {
     }
 
     public static int getIntToday() {
-        String todafy = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
+        String todafy =
+                new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
         return Integer.parseInt(todafy);
     }
 }

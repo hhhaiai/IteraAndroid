@@ -1,11 +1,11 @@
 package me.hhhaiai.jitera.utils;
 
-
-import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Copyright © 2020 sanbo Inc. All rights reserved.
@@ -15,7 +15,6 @@ import java.util.List;
  * Author: sanbo
  */
 public class FileUtils {
-
 
     public static void main(String[] args) {
         System.out.println(FileUtils.getDestopFilePath("result.txt"));
@@ -122,7 +121,8 @@ public class FileUtils {
      * @param saveContent          待保存的内容
      * @param append               是否追加保存
      */
-    public static void saveTextToFile(final String fileFullPathWithName, final String saveContent, boolean append) {
+    public static void saveTextToFile(
+            final String fileFullPathWithName, final String saveContent, boolean append) {
         saveTextToFile(new File(fileFullPathWithName), saveContent, append);
     }
 

@@ -1,7 +1,7 @@
 package me.hhhaiai.jitera.logic;
 
 import me.hhhaiai.jitera.utils.ShellUtils;
-import me.hhhaiai.jitera.utils.TextUtils;
+
 import org.json.JSONArray;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
  * @author: sanbo
  */
 public class DeviceInfo {
-//    public static void main(String[] args) {
-//        System.out.println(get());
-//    }
+    //    public static void main(String[] args) {
+    //        System.out.println(get());
+    //    }
 
     public static JSONArray get() {
         JSONArray res = new JSONArray();
@@ -28,10 +28,10 @@ public class DeviceInfo {
     }
 
     public static String getmodel() {
-        return ShellUtils.getStringUseAdb("getprop ro.product.model").replaceAll(" ","_");
+        return ShellUtils.getStringUseAdb("getprop ro.product.model").replaceAll(" ", "_");
     }
 
     public static String getVersion() {
-        return ShellUtils.getStringUseAdb("getprop ro.build.version.sdk").replaceAll(" ","_");
+        return ShellUtils.getStringUseAdb("getprop ro.build.version.sdk").replaceAll(" ", "_");
     }
 }

@@ -39,7 +39,7 @@ public class Shell {
     public static List<String> getArrays(String cmd, final ISayHello call, boolean isNeedResult) {
 
         if (TextUtils.isEmpty(cmd)) {
-            log(new Exception(" cmd ["+cmd+"] is null"));
+            log(new Exception(" cmd [" + cmd + "] is null"));
             return null;
         }
         List<String> result = new ArrayList<String>();
@@ -84,6 +84,7 @@ public class Shell {
         }
         return result;
     }
+
     public static void safeClose(Object... os) {
         if (os != null && os.length > 0) {
             for (Object o : os) {
@@ -106,7 +107,8 @@ public class Shell {
             }
         }
     }
+
     private static void log(Throwable sth) {
-        Log.e("sanbo",Log.getStackTraceString(sth));
+        Log.e("sanbo", Log.getStackTraceString(sth));
     }
 }

@@ -242,9 +242,7 @@ public class JSONStringer {
 
         beforeValue();
 
-        if (value == null
-                || value instanceof Boolean
-                || value == JSONObject.NULL) {
+        if (value == null || value instanceof Boolean || value == JSONObject.NULL) {
             out.append(value);
 
         } else if (value instanceof Number) {
@@ -347,7 +345,6 @@ public class JSONStringer {
                     }
                     break;
             }
-
         }
         out.append("\"");
     }

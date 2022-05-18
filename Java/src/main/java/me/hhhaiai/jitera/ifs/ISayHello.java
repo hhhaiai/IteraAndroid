@@ -10,4 +10,3 @@ package me.hhhaiai.jitera.ifs;
 public interface ISayHello {
     void onProcessLine(String line);
 }
-

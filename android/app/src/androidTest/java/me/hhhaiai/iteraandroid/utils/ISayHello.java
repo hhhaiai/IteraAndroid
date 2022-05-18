@@ -10,4 +10,3 @@ package me.hhhaiai.iteraandroid.utils;
 public interface ISayHello {
     void onProcessLine(String line);
 }
-

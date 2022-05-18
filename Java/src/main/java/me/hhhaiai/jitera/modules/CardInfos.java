@@ -2,6 +2,7 @@ package me.hhhaiai.jitera.modules;
 
 import me.hhhaiai.jitera.utils.FileUtils;
 import me.hhhaiai.jitera.utils.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,14 +21,12 @@ import java.util.Locale;
  */
 public class CardInfos {
 
-
     public static void main(String[] args) throws JSONException {
         run();
-
     }
 
     public static void run() throws JSONException {
-//        File baseDirs = new File("Git_result/info");
+        //        File baseDirs = new File("Git_result/info");
         File baseDirs = new File("Git_result");
         List<File> files = new ArrayList<File>();
         if (baseDirs.exists()) {
@@ -36,10 +35,10 @@ public class CardInfos {
         System.out.println("一共发现文件: " + files.size());
         for (File tempFile : files) {
             try {
-//            parserCardInfosSingleFile(tempFile);
+                //            parserCardInfosSingleFile(tempFile);
                 parserSubinfoSingleFile(tempFile);
             } catch (Throwable e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
             }
         }
     }
@@ -54,39 +53,33 @@ public class CardInfos {
                 for (String key : getprop.keySet()) {
                     String value = getprop.optString(key, "");
                     if (key.toLowerCase(Locale.getDefault()).contains("imei")
-                            || key.toLowerCase(Locale.getDefault()).contains("meid")
-                    ) {
+                            || key.toLowerCase(Locale.getDefault()).contains("meid")) {
                         if (!TextUtils.isEmpty(value)
                                 && !"1".equalsIgnoreCase(value)
                                 && !value.contains("no")
                                 && !value.contains("_")
                                 && !value.contains("true")
                                 && !value.contains("false")
-                                && !value.contains("com.")
-                        ) {
+                                && !value.contains("com.")) {
 
                             if (!ifs.contains(key)) {
-                                if (key.endsWith("0")
-                                        || key.endsWith("1")
-                                        || key.endsWith("2")
-                                ) {
+                                if (key.endsWith("0") || key.endsWith("1") || key.endsWith("2")) {
                                     if (!ifs.contains(key.substring(0, key.length() - 1))) {
                                         System.err.println(key + "<------->" + value);
                                     } else {
-//                                        System.out.println(key + "<------->" + value);
+                                        //
+                                        // System.out.println(key + "<------->" + value);
                                     }
                                 } else {
                                     System.err.println(key + "<------->" + value);
                                 }
 
-
                             } else {
-//                                System.out.println(key + "<------->" + value);
+                                //                                System.out.println(key +
+                                // "<------->" + value);
                             }
                         }
                     }
-
-
                 }
             }
         }
@@ -100,7 +93,9 @@ public class CardInfos {
             if (obj != null && obj.length() > 0) {
                 for (String key : obj.keySet()) {
                     String value = obj.optString(key, "");
-                    if (TextUtils.isEmpty(value) || value.contains("true") || "1".equalsIgnoreCase(value)) {
+                    if (TextUtils.isEmpty(value)
+                            || value.contains("true")
+                            || "1".equalsIgnoreCase(value)) {
                         continue;
                     }
                     if (!ifs.contains(key)) {
@@ -132,41 +127,43 @@ public class CardInfos {
     }
 
     private static List<String> ifs =
-            new ArrayList<String>(Arrays.asList(
-                    "ril.gsm.imei",
-                    "ril.gsm.meid",
-                    "ril.cdma.imei",
-                    "ril.cdma.meid",
-                    "ro.ril.miui.imei",
-                    "ro.ril.miui.meid",
-                    "persist.radio.imei",
-                    "persist.radio.meid",
-                    "ro.ril.oem.imei",
-                    "ro.ril.oem.meid",
-                    "ril.modem.imei",
-                    "ril.modem.meid",
-                    "gsm.device.imei",
-                    "gsm.device.meid",
-                    "cdma.device.imei",
-                    "cdma.device.meid",
-                    "sys.prop.writeimei",
-                    "gsm.meid",
-                    "gsm.imei",
-                    "cdma.meid",
-                    "cdma.imei",
-                    "persist.sys.imei",
-                    "persist.sys.meid",
-                    "persist.sys.show.device.imei",
-                    "persist.sys.updater.imei",
-                    "persist.sys.updater.meid",
-                    "persist.sys.vtouch.imei",
-                    "persist.sys.vtouch.meid",
-                    "ro.boot.imei",
-                    "ro.boot.meid",
-                    "ro.meizu.hardware.imei",
-                    "ro.meizu.hardware.meid",
-                    "vendor.oem.device.imeicache",
-                    "vendor.oem.device.meidcache",
-                    "vendor.radio.device.imeicache",
-                    "vendor.radio.device.meidcache", "oppo.device.imeicache"));
+            new ArrayList<String>(
+                    Arrays.asList(
+                            "ril.gsm.imei",
+                            "ril.gsm.meid",
+                            "ril.cdma.imei",
+                            "ril.cdma.meid",
+                            "ro.ril.miui.imei",
+                            "ro.ril.miui.meid",
+                            "persist.radio.imei",
+                            "persist.radio.meid",
+                            "ro.ril.oem.imei",
+                            "ro.ril.oem.meid",
+                            "ril.modem.imei",
+                            "ril.modem.meid",
+                            "gsm.device.imei",
+                            "gsm.device.meid",
+                            "cdma.device.imei",
+                            "cdma.device.meid",
+                            "sys.prop.writeimei",
+                            "gsm.meid",
+                            "gsm.imei",
+                            "cdma.meid",
+                            "cdma.imei",
+                            "persist.sys.imei",
+                            "persist.sys.meid",
+                            "persist.sys.show.device.imei",
+                            "persist.sys.updater.imei",
+                            "persist.sys.updater.meid",
+                            "persist.sys.vtouch.imei",
+                            "persist.sys.vtouch.meid",
+                            "ro.boot.imei",
+                            "ro.boot.meid",
+                            "ro.meizu.hardware.imei",
+                            "ro.meizu.hardware.meid",
+                            "vendor.oem.device.imeicache",
+                            "vendor.oem.device.meidcache",
+                            "vendor.radio.device.imeicache",
+                            "vendor.radio.device.meidcache",
+                            "oppo.device.imeicache"));
 }
